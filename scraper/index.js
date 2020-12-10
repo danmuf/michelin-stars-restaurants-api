@@ -1,8 +1,9 @@
 const Scraper = require('./scraper');
 const DBUploader = require('./dbUploader');
+const CSV = require('csv-writer');
 
 const run = async () => {
-  uploadRestaurantsToDb(await getRestaurants());
+  writeDataToCSV(await getRestaurants());
 }
 
 const getRestaurants = async () => {
@@ -21,6 +22,26 @@ const getRestaurants = async () => {
     console.log('==========');
   }
   return scraper.getRestaurants();
+}
+
+const writeDataToCSV = (restaurants) => {
+  const csvWriter = CSV.createObjectCsvWriter({
+    path: 'restaurants.csv',
+    header: [
+      {id: 'rating', title: 'rating'},
+      {id: 'img', title: 'img'},
+      {id: 'name', title: 'name'},
+      {id: 'link', title: 'link'},
+      {id: 'location', title: 'location'},
+      {id: 'type', title: 'type'},
+      {id: 'lat', title: 'lat'},
+      {id: 'lng', title: 'lng'},
+    ],
+    fieldDelimiter: ';'
+  });
+  csvWriter
+      .writeRecords(restaurants)
+      .then(() => console.log("Successfully written CSV file."))
 }
 
 const uploadRestaurantsToDb = (restaurants) => {

@@ -49,8 +49,8 @@ class Scraper {
     const cards = $(selectors.cards);
     cards.each(function () {
       const $card = $(this)
-      const rating = ratingsMap[$card.find(selectors.rating).text().trim()];
-      const year = $card.find(selectors.year).text().trim();
+      const rating = ratingsMap[$card.find(selectors.rating).text().trim()] === undefined ? 0 :
+          ratingsMap[$card.find(selectors.rating).text().trim()];
       const img = $card.find(selectors.img).html().match(regEx.img)[0];
       const $title = $card.find(selectors.name);
       const name = $title.text().trim();
@@ -60,7 +60,7 @@ class Scraper {
       const lat = $card.data('lat');
       const lng = $card.data('lng');
 
-      that.restaurants.push({ rating, year, img, name, link, location, type, lat, lng });
+      that.restaurants.push({ rating, img, name, link, location, type, lat, lng });
     });
 
     const end = new Date();

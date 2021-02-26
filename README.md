@@ -1,30 +1,14 @@
 # Michelin Stars Restaurants Scraper and API
 
-As I couldn't find any public list of all the Michelin Stars Restaurants I decided to build my own, by:
-- scraping the list of restaurants from https://guide.michelin.com/
-- uploading the data to a SQL database
-- allowing access to the data via an API
+This scraper is an extension/fork of https://github.com/NicolaFerracin/michelin-stars-restaurants-api.
 
-**NOTE**: Unfortunately not even the official Michelin website lists all the starred restaurants, so this list can't be used for professional intents
+It contains adaptions to the german Michelin website https://guide.michelin.com/de/de/restaurants/.
+In addition, CSV export is added and parsing of some additional data.
 
-## Scraping
+## Execution
 
-Built in Node.js, using `request-promise` and `cheerio` NPM packages
+First, install dependencies using ``npm i``. Afterwards, run ```npm run run``` (this will take some time).
+Then you can find a file called ``restaurants.csv`` where the scraped data is included.
 
-## Uploading to DB
-
-Built in Node.js, using `mysql` NPM packages
-
-## API
-
-Built in go, using `mux` and `gorm`
-
-The only available endpoint is `/restaurants`.
-
-```js
-fetch('https://api.nicolaferracin.com/michelin/restaurants')
-  .then(res => res.json())
-  .then(restaurants => {
-    // Do something with restaurants array
-  }
-```
+Remark: the number of scraped restaurants can vary because the Michelin website is updated
+from time to time (and restaurants are closed or opened). In general, there should be around 1450 - 1500 restaurants.
